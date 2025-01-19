@@ -103,6 +103,41 @@ local uitabs = {
     })
 };
 
+local sections = {
+	combat = {
+		left = uitabs.combat:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.combat:Section({
+			Side = 'Right'
+		})
+	},
+	movement = {
+		left = uitabs.movement:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.movement:Section({
+			Side = 'Right'
+		})
+	},
+	render = {
+		left = uitabs.render:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.render:Section({
+			Side = 'Right'
+		})
+	},
+	utility = {
+		left = uitabs.utility:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.utility:Section({
+			Side = 'Right'
+		})
+	}
+};
+
 --// modules/functions
 
 newRay = function(begin, dir)
@@ -192,6 +227,78 @@ local Bedwars = {
 	SetInvItem = getRemote("SetInvItem"),
 	PlaceBlock = getRemote("PlaceBlock"),
 };
+
+getchargeRatio = function()
+	local weapon = getBestWeapon();
+	if weapon.Name:lower():find("hammer") then
+		return 0.2 or nil;
+	elseif weapon.Name:lower():find("scythe") then
+		return 0.0001 or nil;
+	else
+		return 0 or nil;
+	end;
+end;
+
+local AuraNear
+local AttackPlayer = function(Player)
+    local weapon = getBestWeapon();
+    local primaryPart, targetPos;
+    AuraNear = true;
+
+    primaryPart = playersService.Character and playersService.Character.PrimaryPart;
+    targetPos = playersService.Character and playersService.Character.PrimaryPart.Position;
+    if not primaryPart or not targetPos then return; end;
+
+    Bedwars.SwordHit:FireServer({
+        chargedAttack = {
+            chargeRatio = getchargeRatio()
+        },
+        entityInstance = playersService:IsA("Player") and playersService.Character or playersService,
+        validate = {
+            raycast = {
+                cameraPosition = {
+                    value = targetPos
+                },
+                cursorDirection = {
+                    value = CFrame.new(lplr.Character.PrimaryPart.Position, targetPos).LookVector
+                },
+            },
+            targetPosition = {
+                value = targetPos
+            },
+            selfPosition = {
+                value = lplr.Character.PrimaryPart.Position
+            },
+        },
+        weapon = weapon
+    });
+end;
+
+getViewmodel =  function()
+	return workspace.Camera.Viewmodel.RightHand.RightWrist or nil
+end
+
+run(function()
+	local Aura
+	local weld = getViewmodel().C0;
+	local oldweld = getViewmodel().C0;
+	local AuraCon
+	local LastHP = 100
+	local Tick = 0
+	local AuraRange
+	local AuraMethod
+	local AntiHit
+	Aura = sections.combat:Toggle({
+		Name = "Toggle",
+		Default = false,
+		Callback = function(value)
+			Window:Notify({
+				Title = Window.Settings.Title,
+				Description = (value and "Enabled " or "Disabled ") .. "Toggle"
+			})
+		end,
+	}, "Toggle")
+end)
 
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
