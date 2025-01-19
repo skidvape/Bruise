@@ -8,7 +8,9 @@ local files = {
     '/core/installer.lua',
     '/core/meta.lua',
     '/core/src.lua',
-    '/loader.lua'   
+    '/loader.lua',
+    '/songs/numb.mp3',
+    '/songs/w4ytoof4r.mp3'
 };
 
 local suc, res = pcall(function()
