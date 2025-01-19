@@ -12,7 +12,7 @@ local files = {
 };
 
 local suc, res = pcall(function()
-    for _, v in pairs(files) do
+    for _, v in ipairs(files) do
         if not isfile('Bruise'..v) then
             writefile('Bruise'..v, game:HttpGet(url..v));
         elseif isfile('Bruise'..v) and readfile('Bruise'..v) ~= game:HttpGet(url..v) then
