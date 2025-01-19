@@ -30,6 +30,8 @@ local ui = {
     };
 };
 
+--// console
+
 ui.Window:Center();
 
 ui.Window:ShowTab(ui.tabs.ConsoleTab) 
@@ -85,3 +87,11 @@ coroutine.wrap(function()
         )
     end
 end)()
+
+run = function(v)
+    local suc, res = pcall(function()
+        return v;
+    end);
+    
+    if res then writefile('errorlog.txt', tostring(res)); end;
+end
