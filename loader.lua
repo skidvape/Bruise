@@ -1,0 +1,1 @@
+loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/src.lua'))();
