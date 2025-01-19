@@ -107,5 +107,5 @@ local uitabs = {
 uilib:SetFolder("Maclib");
 uitabs.settings:InsertConfigSection("Left");
 
-for i,v in ipairs(uitabs) do v:Select() end;
+for i,v in ipairs(uitabs) do v:Select(); end;
 uilib:LoadAutoLoadConfig();
