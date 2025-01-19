@@ -23,4 +23,4 @@ local suc, res = pcall(function()
 end);
 
 if res and not suc then writefile('errorlog.lua', tostring(res)); end;
-return loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/src.lua'))();
+return loadstring(readfile('bruise/core/src.lua'))();
