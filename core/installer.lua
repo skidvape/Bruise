@@ -1,20 +1,22 @@
-local cloneref = cloneref or function(v) return v; end;
 local url = 'https://raw.githubusercontent.com/skidvape/Bruise/main';
 
-if not isfolder('Bruise') then makefolder('Bruise'); end;
-if not isfolder('Bruise/core') then makefolder('Bruise/core'); end;
-if not isfolder('Bruise/core/songs') then makefolder('Bruise/core/songs'); end;
+for _, v in {'bruise', 'bruise/core', 'bruise/songs'} do
+    if not isfolder(v) then makefolder(v); end;
+end;
 
 local files = {
     '/core/installer.lua',
     '/core/meta.lua',
     '/core/src.lua',
-    '/loader.lua'
+    '/loader.lua'   
 };
 
 local suc, res = pcall(function()
-    for i,v in pairs(files) do
+    for _, v in pairs(files) do
         if not isfile('Bruise'..v) then
+            writefile('Bruise'..v, game:HttpGet(url..v));
+        elseif isfile('Bruise'..v) and readfile('Bruise'..v) ~= game:HttpGet(url..v) then
+            delfile('Bruise'..v);
             writefile('Bruise'..v, game:HttpGet(url..v));
         end;
     end;
