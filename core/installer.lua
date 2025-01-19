@@ -6,10 +6,10 @@ if not isfolder('Bruise/core') then makefolder('Bruise/core'); end;
 if not isfolder('Bruise/core/songs') then makefolder('Bruise/core/songs'); end;
 
 local files = {
-    'core/installer.lua',
-    'core/meta.lua',
-    'core/src.lua',
-    'loader.lua'
+    '/core/installer.lua',
+    '/core/meta.lua',
+    '/core/src.lua',
+    '/loader.lua'
 };
 
 local suc, res = pcall(function()
