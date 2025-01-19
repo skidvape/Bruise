@@ -79,7 +79,7 @@ local globalSettings = {
 local tabs = {
 	modules = Window:TabGroup(),
     configs = Window:TabGroup()
-}
+};
 
 local uitabs = {
     combat = tabs.modules:Tab({
@@ -104,12 +104,8 @@ local uitabs = {
     })
 };
 
-uilib:SetFolder("Maclib")
-uitabs.settings:InsertConfigSection("Left")
-
-Window.onUnloaded(function()
-	print("Unloaded!")
-end)
+uilib:SetFolder("Maclib");
+uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select() end;
-uilib:LoadAutoLoadConfig()
+uilib:LoadAutoLoadConfig();
