@@ -104,7 +104,9 @@ local uitabs = {
     })
 };
 
-uilib:SetFolder("Maclib");
+-- configs
+
+uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select(); end;
