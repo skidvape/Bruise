@@ -15,7 +15,7 @@ local ReplicatedStorage = cloneref(game:GetService('ReplicatedStorage'));
 local CollectionService = cloneref(game:GetService('CollectionService'));
 local VirtualUser = cloneref(game:GetService('VirtualUser'));
 local lplr = playersService.LocalPlayer;
-local weaponMeta = loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/libs/meta.lua'))();
+local weaponMeta = loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/libs/meta.lua'))();
 run = function(v)
     local suc, res = pcall(function()
         v();
