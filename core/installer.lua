@@ -1,5 +1,5 @@
 local cloneref = cloneref or function(v) return v; end;
-local url = 'https://raw.githubusercontent.com/skidvape/Bruise/main/..';
+local url = 'https://raw.githubusercontent.com/skidvape/Bruise/main';
 
 if not isfolder('Bruise') then makefolder('Bruise'); end;
 if not isfolder('Bruise/core') then makefolder('Bruise/core'); end;
