@@ -1,1 +1,1 @@
-loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/src.lua'))();
+loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/installer.lua'))();

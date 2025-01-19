@@ -26,3 +26,13 @@ local ui = {
 };
 
 ui.Window:Center();
+
+-- buttons and allat shit
+
+Tab:Checkbox({
+	Label = "Check box",
+	Value = true,
+	Callback = function(self, Value)
+		print(self.Name, Value)
+	end,
+})
