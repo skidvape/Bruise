@@ -1,1 +1,2 @@
-return game.Players.LocalPlayer:Kick('bruise at --> .gg/9G4qFJjfGZ');
+-- services/weaponmetas
+local cloneref = cloneref or function(v) return v; end;
