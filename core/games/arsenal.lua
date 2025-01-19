@@ -1,7 +1,7 @@
--- init
+--// init
 local uilib = loadstring(game:HttpGet("https://github.com/biggaboy212/Maclib/releases/latest/download/maclib.txt"))()
 
--- services
+--// services
 local cloneref = cloneref or function(v) return v; end;
 local playersService = cloneref(game:GetService('Players'));
 local Lighting = cloneref(game:GetService('Lighting'));
@@ -14,10 +14,6 @@ local ReplicatedStorage = cloneref(game:GetService('ReplicatedStorage'));
 local CollectionService = cloneref(game:GetService('CollectionService'));
 local VirtualUser = cloneref(game:GetService('VirtualUser'));
 local lplr = playersService.LocalPlayer;
-
--- functions/tables
-local swordmeta = loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/meta.lua'))();
-
 run = function(v)
     local suc, res = pcall(function()
         return v;
@@ -25,6 +21,8 @@ run = function(v)
     
     if res then writefile('errorlog.txt', tostring(res)); end;
 end;
+
+--// ui definition
 
 local Window = uilib:Window({
 	Title = "Bruise",
