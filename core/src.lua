@@ -23,16 +23,65 @@ local ui = {
         Size = UDim2.new(0, 350, 0, 370),
         Position = UDim2.new(0.5, 0, 0, 70)
     });
+    tabs = {
+        ConsoleTab = ui.Window:CreateTab({
+            Name = "Console"
+        })
+    };
 };
 
 ui.Window:Center();
 
--- buttons and allat shit
+ui.Window:ShowTab(ui.tabs.ConsoleTab) 
+        
+local Row2 = ui.tabs.ConsoleTab:Row()
 
-Tab:Checkbox({
-	Label = "Check box",
-	Value = true,
-	Callback = function(self, Value)
-		print(self.Name, Value)
-	end,
+ui.tabs.ConsoleTab:Separator({
+    Text = "Console Example:"
 })
+
+local Console = ui.tabsConsoleTab:Console({
+    Text = "Console example",
+    ReadOnly = true,
+    LineNumbers = false,
+    Border = false,
+    Fill = true,
+    Enabled = true,
+    AutoScroll = true,
+    RichText = true,
+    MaxLines = 50
+})
+
+Row2:Button({
+    Text = "Clear",
+    Callback = Console.Clear
+})
+Row2:Button({
+    Text = "Copy"
+})
+Row2:Button({
+    Text = "Pause",
+    Callback = function(self)
+        local Paused = shared.Pause
+        Paused = not (Paused or false)
+        shared.Pause = Paused
+        
+        self.Text = Paused and "Paused" or "Pause"
+        Console.Enabled = not Paused
+    end,
+})
+Row2:Fill()
+
+coroutine.wrap(function()
+    while wait() do
+        local Date = DateTime.now():FormatLocalTime("h:mm:ss A", "en-us")
+        
+        Console:AppendText(
+            `<font color="rgb(240, 40, 10)">[Random Math]</font>`, 
+            math.random()
+        )
+        Console:AppendText(
+            `[{Date}] {Console}`
+        )
+    end
+end)()
