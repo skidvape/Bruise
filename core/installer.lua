@@ -22,4 +22,4 @@ end);
 
 if res and not suc then writefile('errorlog.lua', tostring(res)); end;
 
-return loadstring(game:HttpGet(url..'/src/src.lua'))();
+return loadstring(game:HttpGet(url..'/core/src.lua'))();
