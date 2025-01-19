@@ -1,6 +1,6 @@
 local url = 'https://raw.githubusercontent.com/skidvape/Bruise/main';
 
-for _, v in {'bruise', 'bruise/core', 'bruise/songs'} do
+for _, v in {'bruise', 'bruise/core', 'bruise/songs', 'bruise/core/configs'} do
     if not isfolder(v) then makefolder(v); end;
 end;
 
