@@ -4,6 +4,7 @@ local uilib = loadstring(game:HttpGet("https://github.com/biggaboy212/Maclib/rel
 --// services
 local cloneref = cloneref or function(v) return v; end;
 local playersService = cloneref(game:GetService('Players'));
+local workspace = cloneref(game:GetService('Workspace'));
 local Lighting = cloneref(game:GetService('Lighting'));
 local RunService = cloneref(game:GetService('RunService'));
 local TextService = cloneref(game:GetService('TextService'));
@@ -17,7 +18,7 @@ local lplr = playersService.LocalPlayer;
 local weaponMeta = loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/libs/meta.lua'))();
 run = function(v)
     local suc, res = pcall(function()
-        return v;
+        v();
     end);
     
     if res then writefile('errorlog.txt', tostring(res)); end;
@@ -172,14 +173,6 @@ local function getBestWeapon()
 	return getInv():FindFirstChild(Sword);
 end;
 
-local entities = {
-	"DiamondGuardian",
-	"GolemBoss",
-	"Monster",
-	"GuardianOfDream",
-	"jellyfish",
-}
-
 local getNearestPlayer = function(range)
 	local nearest
 	local nearestDist = math.huge
@@ -192,13 +185,50 @@ local getNearestPlayer = function(range)
 			end;
 		end);
 	end;
-	for i, v in ipairs(CollectionService:GetTagged(entities)) do
+	for i, v in pairs(CollectionService:GetTagged('DiamondGuardian')) do
 		pcall(function()
-			print(v.PrimaryPart);
-			if v == lplr or v.Team == lplr.Team then return; end;
 			if v.PrimaryPart then
-				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - plr.Character.PrimaryPart.Position).Magnitude <= range then
-					print((v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude);
+				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude <= range then
+					nearest = v;
+					nearestDist = (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude;
+				end;	
+			end;
+		end);
+	end;
+	for i, v in pairs(CollectionService:GetTagged('GolemBoss')) do
+		pcall(function()
+			if v.PrimaryPart then
+				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude <= range then
+					nearest = v;
+					nearestDist = (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude;
+				end;	
+			end;
+		end);
+	end;
+	for i, v in pairs(CollectionService:GetTagged('Monster')) do
+		pcall(function()
+			if v.PrimaryPart then
+				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude <= range then
+					nearest = v;
+					nearestDist = (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude;
+				end;	
+			end;
+		end);
+	end;
+	for i, v in pairs(CollectionService:GetTagged('GuardianOfDream')) do
+		pcall(function()
+			if v.PrimaryPart then
+				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude <= range then
+					nearest = v;
+					nearestDist = (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude;
+				end;	
+			end;
+		end);
+	end;
+	for i, v in pairs(CollectionService:GetTagged('jellyfish')) do
+		pcall(function()
+			if v.PrimaryPart then
+				if (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude < nearestDist and (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude <= range then
 					nearest = v;
 					nearestDist = (v.PrimaryPart.Position - lplr.Character.PrimaryPart.Position).Magnitude;
 				end;	
@@ -274,30 +304,90 @@ local AttackPlayer = function(Player)
     });
 end;
 
-getViewmodel =  function()
+getViewmodel = function()
 	return workspace.Camera.Viewmodel.RightHand.RightWrist or nil
 end
 
 run(function()
-	local Aura
+	local Aura;
 	local weld = getViewmodel().C0;
 	local oldweld = getViewmodel().C0;
-	local AuraCon
-	local LastHP = 100
-	local Tick = 0
-	local AuraRange
-	local AuraMethod
-	local AntiHit
-	Aura = sections.combat:Toggle({
-		Name = "Toggle",
+	local AuraCon;
+	local LastHP = 100;
+	local Tick = 0;
+	local AuraRange;
+	local AuraMethod;
+	local AntiHit;
+	Aura = sections.combat.left:Toggle({
+		Name = "Aura",
 		Default = false,
-		Callback = function(value)
-			Window:Notify({
-				Title = Window.Settings.Title,
-				Description = (value and "Enabled " or "Disabled ") .. "Toggle"
-			})
+		Callback = function(callback)
+			if callback then
+				AuraCon = RunService.Heartbeat:Connect(function()
+					local nearest = getNearestPlayer(AuraRange.Value)
+					if nearest then
+						if AuraMethod.Option == "Normal" then
+							AttackPlayer(nearest)
+						elseif AuraMethod.Option == "Tick" then
+							if Tick > 24 then
+								AttackPlayer(nearest)
+							end
+						end
+						getViewmodel().C0 = oldweld * CFrame.new(0.7, -0.4, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-50))
+					else
+						getViewmodel().C0 = oldweld
+						AuraNear = false
+					end
+					if AntiHit.Option == "TeleportBehind" and LastHP < lplr.Character.Humanoid.Health then
+						lplr.Character.PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -7 + Vector3.new(0,6,0)
+					end
+					LastHP = lplr.Character.Humanoid.Health
+					Tick += 1
+				end)
+			else
+				AuraNear = false
+				AuraCon:Disconnect()
+				Tick = 0
+			end
 		end,
-	}, "Toggle")
+	}, "Aura");
+	AuraRange = sections.combat.left:Slider({
+		Name = "Range",
+		Default = 18,
+		Minimum = 0,
+		Maximum = 18,
+		DisplayMethod = "Percent",
+		Precision = 0,
+		Callback = function(value)
+			if value then
+				value = AuraRange.Option;
+			end;
+		end,
+	}, "Slider")
+	AuraMethod = sections.combat.left:Dropdown({
+		Name = "Method",
+		Multi = false,
+		Required = true,
+		Options = {'Normal', 'Tick'},
+		Default = 1,
+		Callback = function(value)
+			if value then
+				value = AuraMethod.Option;
+			end;
+		end,
+	}, "AuraMethod")
+	AntiHit = sections.combat.left:Dropdown({
+		Name = "Dropdown",
+		Multi = false,
+		Required = true,
+		Options = {'TeleportBehind', 'SpoofPos'},
+		Default = 1,
+		Callback = function(value)
+			if value then
+				value = AntiHit.Option;
+			end;
+		end,
+	}, "AntiHit")
 end)
 
 uilib:SetFolder("bruise/core/configs");
