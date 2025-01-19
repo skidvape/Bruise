@@ -104,8 +104,6 @@ local uitabs = {
     })
 };
 
--- configs
-
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
