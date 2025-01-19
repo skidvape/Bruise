@@ -1,5 +1,7 @@
--- ui/services/meta
+-- init
 local uilib = loadstring(game:HttpGet('https://github.com/depthso/Roblox-ImGUI/raw/main/ImGui.lua'))();
+
+-- services
 local cloneref = cloneref or function(v) return v; end;
 local playersService = cloneref(game:GetService('Players'));
 local Lighting = cloneref(game:GetService('Lighting'));
@@ -13,9 +15,14 @@ local CollectionService = cloneref(game:GetService('CollectionService'));
 local VirtualUser = cloneref(game:GetService('VirtualUser'));
 local lplr = playersService.LocalPlayer;
 
-local Window = uilib:CreateWindow({
-	Title = "Depso Imgui Demo",
-	Size = UDim2.new(0, 350, 0, 370),
-	Position = UDim2.new(0.5, 0, 0, 70)
-})
-Window:Center()
+-- functions/tables
+local swordmeta = loadstring(game:HttpGet('https://github.com/skidvape/Bruise/raw/main/core/meta.lua'))();
+local ui = {
+    Window = uilib:CreateWindow({
+        Title = "Bruise",
+        Size = UDim2.new(0, 350, 0, 370),
+        Position = UDim2.new(0.5, 0, 0, 70)
+    });
+};
+
+ui.Window:Center();
