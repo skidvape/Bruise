@@ -26,7 +26,7 @@ end;
 
 local Window = uilib:Window({
 	Title = "Bruise",
-	Subtitle = "A free, fully open-source solara supported script for Arsenal.",
+	Subtitle = "A free, fully open-source solara supported script for Roblox.",
 	Size = UDim2.fromOffset(868, 650),
 	DragStyle = 1,
 	DisabledWindowControls = {},
@@ -210,4 +210,4 @@ uitabs.settings:InsertConfigSection("Left");
 for i,v in ipairs(uitabs) do v:Select(); end;
 uilib:LoadAutoLoadConfig();
 
-return lplr:Kick('bruise not supported yet!!');
+warn('Bruise IS STILL in development, and thus is NOT finished yet!');
