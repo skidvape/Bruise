@@ -26,7 +26,7 @@ end;
 
 local Window = uilib:Window({
 	Title = "Bruise",
-	Subtitle = "A free, fully open-source solara supported script for Roblox Arsenal.",
+	Subtitle = "A free, fully open-source solara supported script for Fisch.",
 	Size = UDim2.fromOffset(868, 650),
 	DragStyle = 1,
 	DisabledWindowControls = {},
@@ -164,6 +164,8 @@ run(function()
 		table.insert(audiolist, i)
 	end
 	local newAudio
+    local Volume
+    local Loop
 	MusicPlayer = sections.utility.left:Toggle({
 		Name = "MusicPlayer",
 		Default = false,
@@ -173,7 +175,8 @@ run(function()
 				newAudio.SoundId = audios[SongOption.Value] or "";
 				if newAudio.SoundId and newAudio.SoundId ~= "" then
 					newAudio:Play();
-					newAudio.Looped = true;
+					newAudio.Looped = Loop.Value;
+                    newAudio.Volume = Volume.Value;
 				else
 					warn("executor issue LOL (p.s your exec is buns)");
 				end;
@@ -183,6 +186,25 @@ run(function()
 			end;
 		end,
 	}, "MusicPlayer")
+    Volume = sections.utility.left:Slider({
+        Name = "Volume",
+        Default = 1,
+        Minimum = 0,
+        Maximum = 1,
+        DisplayMethod = "Percent",
+        Callback = function(value)
+            Volume.Value = value
+            if value then newAudio.Volume = value end
+        end,
+    }, "Volume")
+    Loop = sections.utility.left:Toggle({
+        Name = "Loop",
+        Default = false,
+        Callback = function(value)
+            Loop.Value = value;
+            if value then newAudio.Looped = value end
+        end,
+    }, "Loop")
 	SongOption = sections.utility.left:Dropdown({
 		Name = "Dropdown",
 		Multi = false,
@@ -197,9 +219,7 @@ run(function()
 					newAudio:Play();
 				end;
 			end;
-			if value then
-				SongOption.Value = value;
-			end;
+			SongOption.Value = value;
 		end,
 	}, "SongOption")
 end)
