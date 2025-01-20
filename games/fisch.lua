@@ -150,6 +150,7 @@ run(function()
 	end;
 	for i,v in audios do table.insert(audiolist, i); end;
 	local SongOption
+	local newAudio
 	MusicPlayer = sections.utility.left:Toggle({
 		Name = "MusicPlayer",
 		Default = false,
