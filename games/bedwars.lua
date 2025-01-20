@@ -269,15 +269,23 @@ getchargeRatio = function()
 	end;
 end;
 
-local AuraNear
+local AuraNear;
 local AttackPlayer = function(Player)
     local weapon = getBestWeapon();
     local primaryPart, targetPos;
     AuraNear = true;
 
-    primaryPart = playersService.Character and playersService.Character.PrimaryPart;
-    targetPos = playersService.Character and playersService.Character.PrimaryPart.Position;
-    if not primaryPart or not targetPos then return; end;
+    if Player:IsA("Player") then
+        primaryPart = Player.Character and Player.Character.PrimaryPart
+        targetPos = primaryPart and Player.Character.Position
+		return primaryPart, targetPos
+    else
+        primaryPart = Player.PrimaryPart
+        targetPos = Player.PrimaryPart and Player.PrimaryPart.Position
+		return primaryPart, targetPos
+    end
+
+    if not primaryPart or not targetPos then return end
 
     Bedwars.SwordHit:FireServer({
         chargedAttack = {
@@ -290,7 +298,7 @@ local AttackPlayer = function(Player)
                     value = targetPos
                 },
                 cursorDirection = {
-                    value = CFrame.new(lplr.Character.PrimaryPart.Position, targetPos).LookVector
+                    value = CFrame.new(lplr.Character.PrimaryPart.Position, targetPos)
                 },
             },
             targetPosition = {
