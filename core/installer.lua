@@ -1,4 +1,4 @@
-for _, v in {'bruise', 'bruise/core', 'bruise/songs', 'bruise/core/configs', 'bruise/core/libs', 'bruise/core/games'} do
+for _, v in {'bruise', 'bruise/core', 'bruise/songs', 'bruise/core/configs', 'bruise/core/libs', 'bruise/games'} do
     if not isfolder(v) then makefolder(v); end;
 end;
 
