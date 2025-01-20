@@ -298,14 +298,14 @@ local AttackPlayer = function(Player)
                     value = targetPos
                 },
                 cursorDirection = {
-                    value = CFrame.new(lplr.Character.PrimaryPart.Position, targetPos)
+                    value = CFrame.new(primaryPart.Position, targetPos)
                 },
             },
             targetPosition = {
                 value = targetPos
             },
             selfPosition = {
-                value = lplr.Character.PrimaryPart.Position
+                value = primaryPart.Position
             },
         },
         weapon = weapon
