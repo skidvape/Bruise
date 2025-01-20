@@ -143,20 +143,23 @@ run(function()
 	local MusicPlayer
 	local audios = {};
 	local path = 'bruise/songs';
-	local audiolist = {}
-	local suc, res = pcall(function()
+	local suc, err = pcall(function()
 		for i, v in pairs(listfiles(path)) do
 			local name = v:match("^.+/(.+)%.mp3$");
 			audios[name] = getcustomasset(v);
 		end;
-		for i,v in audios do table.insert(audiolist, i); end;
 	end)
-	if res and not suc then
-		audiolist = {
-			numb = getcustomasset("bruise/songs/numb.mp3"),
-			waytoofar = getcustomasset("bruise/songs/w4ytoof4r.mp3")
+	
+	if err then
+		audios = {
+			Mexico = getcustomasset("bruise/songs/numb.mp3"),
+			SickoModeMinecraft = getcustomasset("bruise/songs/w4ytoof4r.mp3")
 		}
+		warn(err)
 	end
+	
+	local audiolist = {}
+	for i,v in audios do table.insert(audiolist, i) end
 	local SongOption
 	local newAudio
 	MusicPlayer = sections.utility.left:Toggle({
