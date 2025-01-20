@@ -26,7 +26,7 @@ end;
 
 local Window = uilib:Window({
 	Title = "Bruise",
-	Subtitle = "A free, fully open-source solara supported script for Roblox Bedwars.",
+	Subtitle = "A free, fully open-source solara supported script for Roblox Arsenal.",
 	Size = UDim2.fromOffset(868, 650),
 	DragStyle = 1,
 	DisabledWindowControls = {},
