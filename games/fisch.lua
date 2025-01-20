@@ -19,7 +19,7 @@ run = function(v)
         v();
     end);
     
-    if res then writefile('errorlog.txt', tostring(res)); end;
+    if res then writefile('errorlog.lua', tostring(res)); end;
 end;
 
 --// ui definition
