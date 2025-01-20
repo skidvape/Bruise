@@ -102,6 +102,83 @@ local uitabs = {
     })
 };
 
+local sections = {
+	combat = {
+		left = uitabs.combat:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.combat:Section({
+			Side = 'Right'
+		})
+	},
+	movement = {
+		left = uitabs.movement:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.movement:Section({
+			Side = 'Right'
+		})
+	},
+	render = {
+		left = uitabs.render:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.render:Section({
+			Side = 'Right'
+		})
+	},
+	utility = {
+		left = uitabs.utility:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.utility:Section({
+			Side = 'Right'
+		})
+	}
+};
+
+--// modules
+
+run(function()
+	local MusicPlayer
+	local audios = {};
+	local path = 'bruise/songs';
+	local audiolist = {}
+	for i, v in pairs(listfiles(path)) do
+		local name = v:match("^.+/(.+)%.mp3$");
+		audios[name] = getcustomasset(v);
+	end;
+	for i,v in audios do table.insert(audiolist, i); end;
+	local SongOption
+	MusicPlayer = sections.utility.left:Toggle({
+		Name = "MusicPlayer",
+		Default = false,
+		Callback = function(callback)
+			if callback then
+				newAudio = Instance.new("Sound", workspace)
+				newAudio.SoundId = audios[SongOption.Option]
+				newAudio:Play()
+				newAudio.Looped = true
+			else
+				newAudio:Stop()
+				newAudio = nil
+			end
+		end,
+	}, "MusicPlayer")
+	SongOption = sections.combat.left:Dropdown({
+		Name = "Dropdown",
+		Multi = false,
+		Required = true,
+		Options = audiolist,
+		Default = 1,
+		Callback = function(value)
+			if value then
+				value = SongOption.Option;
+			end;
+		end,
+	}, "SongOption")
+end)
+
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
