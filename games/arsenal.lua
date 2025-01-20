@@ -102,6 +102,41 @@ local uitabs = {
     })
 };
 
+local sections = {
+	combat = {
+		left = uitabs.combat:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.combat:Section({
+			Side = 'Right'
+		})
+	},
+	movement = {
+		left = uitabs.movement:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.movement:Section({
+			Side = 'Right'
+		})
+	},
+	render = {
+		left = uitabs.render:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.render:Section({
+			Side = 'Right'
+		})
+	},
+	utility = {
+		left = uitabs.utility:Section({
+			Side = 'Left'
+		}),
+		right = uitabs.utility:Section({
+			Side = 'Right'
+		})
+	}
+};
+
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
