@@ -177,7 +177,7 @@ run(function()
 			end
 		end,
 	}, "MusicPlayer")
-	SongOption = sections.combat.left:Dropdown({
+	SongOption = sections.utility.left:Dropdown({
 		Name = "Dropdown",
 		Multi = false,
 		Required = true,
