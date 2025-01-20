@@ -16,6 +16,8 @@ end);
 if res and not suc then writefile('errorlog.lua', tostring(res)); end;
 if game.PlaceId == 286090429 then
     return loadfile('bruise/games/arsenal.lua')();
+elseif game.PlaceId == 15135285305 then
+    return loadfile('bruise/games/gef.lua')();
 else
     return loadfile('bruise/games/bedwars.lua')();
 end;
