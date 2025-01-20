@@ -16,7 +16,7 @@ local VirtualUser = cloneref(game:GetService('VirtualUser'));
 local lplr = playersService.LocalPlayer;
 run = function(v)
     local suc, res = pcall(function()
-        return v;
+        v();
     end);
     
     if res then writefile('errorlog.txt', tostring(res)); end;
@@ -152,8 +152,8 @@ run(function()
 	
 	if err then
 		audios = {
-			Mexico = getcustomasset("bruise/songs/numb.mp3"),
-			SickoModeMinecraft = getcustomasset("bruise/songs/w4ytoof4r.mp3")
+			numb = getcustomasset("bruise/songs/numb.mp3"),
+			w4ytoof4r = getcustomasset("bruise/songs/w4ytoof4r.mp3")
 		}
 		warn(err)
 	end
