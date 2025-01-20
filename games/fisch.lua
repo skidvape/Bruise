@@ -141,13 +141,14 @@ local sections = {
 
 run(function()
 	local MusicPlayer
-	local audios = {};
-	local path = 'bruise/songs';
+	local SongOption
+	local audios = {}
+	local path = 'bruise/songs'
 	local suc, err = pcall(function()
 		for i, v in pairs(listfiles(path)) do
-			local name = v:match("^.+/(.+)%.mp3$");
-			audios[name] = getcustomasset(v);
-		end;
+			local name = v:match("^.+/(.+)%.mp3$")
+			audios[name] = getcustomasset(v)
+		end
 	end)
 	
 	if err then
@@ -159,22 +160,27 @@ run(function()
 	end
 	
 	local audiolist = {}
-	for i,v in audios do table.insert(audiolist, i) end
-	local SongOption
+	for i, v in audios do
+		table.insert(audiolist, i)
+	end
 	local newAudio
 	MusicPlayer = sections.utility.left:Toggle({
 		Name = "MusicPlayer",
 		Default = false,
 		Callback = function(callback)
 			if callback then
-				newAudio = Instance.new("Sound", workspace)
-				newAudio.SoundId = audios[SongOption.Option]
-				newAudio:Play()
-				newAudio.Looped = true
+				newAudio = Instance.new("Sound", workspace);
+				newAudio.SoundId = audios[SongOption.Value] or "";
+				if newAudio.SoundId and newAudio.SoundId ~= "" then
+					newAudio:Play();
+					newAudio.Looped = true;
+				else
+					warn("executor issue LOL (p.s your exec is buns)");
+				end;
 			else
-				newAudio:Stop()
-				newAudio = nil
-			end
+				newAudio:Stop();
+				newAudio = nil;
+			end;
 		end,
 	}, "MusicPlayer")
 	SongOption = sections.utility.left:Dropdown({
@@ -184,8 +190,15 @@ run(function()
 		Options = audiolist,
 		Default = 1,
 		Callback = function(value)
+			if newAudio then
+				newAudio:Stop();
+				newAudio.SoundId = audios[value] or "";
+				if newAudio.SoundId and newAudio.SoundId ~= "" then
+					newAudio:Play();
+				end;
+			end;
 			if value then
-				value = SongOption.Option;
+				SongOption.Value = value;
 			end;
 		end,
 	}, "SongOption")

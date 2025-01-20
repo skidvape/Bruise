@@ -334,9 +334,9 @@ run(function()
 				AuraCon = RunService.Heartbeat:Connect(function()
 					local nearest = getNearestPlayer(AuraRange.Value)
 					if nearest then
-						if AuraMethod.Option == "Normal" then
+						if AuraMethod.Value == "Normal" then
 							AttackPlayer(nearest)
-						elseif AuraMethod.Option == "Tick" then
+						elseif AuraMethod.Value == "Tick" then
 							if Tick > 24 then
 								AttackPlayer(nearest)
 							end
@@ -346,7 +346,7 @@ run(function()
 						getViewmodel().C0 = oldweld
 						AuraNear = false
 					end
-					if AntiHit.Option == "TeleportBehind" and LastHP < lplr.Character.Humanoid.Health then
+					if AntiHit.Value == "TeleportBehind" and LastHP < lplr.Character.Humanoid.Health then
 						lplr.Character.PrimaryPart.CFrame = nearest.Character.PrimaryPart.CFrame + nearest.Character.PrimaryPart.CFrame.LookVector * -7 + Vector3.new(0,6,0)
 					end
 					LastHP = lplr.Character.Humanoid.Health
@@ -368,7 +368,7 @@ run(function()
 		Precision = 0,
 		Callback = function(value)
 			if value then
-				value = AuraRange.Option;
+				AuraRange.Value = value;
 			end;
 		end,
 	}, "Slider")
@@ -380,7 +380,7 @@ run(function()
 		Default = 1,
 		Callback = function(value)
 			if value then
-				value = AuraMethod.Option;
+				AuraMethod.Value = value;
 			end;
 		end,
 	}, "AuraMethod")
@@ -392,7 +392,7 @@ run(function()
 		Default = 1,
 		Callback = function(value)
 			if value then
-				value = AntiHit.Option;
+				AntiHit.Value = value;
 			end;
 		end,
 	}, "AntiHit")

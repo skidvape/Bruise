@@ -141,39 +141,64 @@ local sections = {
 
 run(function()
 	local MusicPlayer
-	local audios = {};
-	local path = 'bruise/songs';
-	local audiolist = {}
-	for i, v in pairs(listfiles(path)) do
-		local name = v:match("^.+/(.+)%.mp3$");
-		audios[name] = getcustomasset(v);
-	end;
-	for i,v in audios do table.insert(audiolist, i); end;
 	local SongOption
+	local audios = {}
+	local path = 'bruise/songs'
+	local suc, err = pcall(function()
+		for i, v in pairs(listfiles(path)) do
+			local name = v:match("^.+/(.+)%.mp3$")
+			audios[name] = getcustomasset(v)
+		end
+	end)
+	
+	if err then
+		audios = {
+			numb = getcustomasset("bruise/songs/numb.mp3"),
+			w4ytoof4r = getcustomasset("bruise/songs/w4ytoof4r.mp3")
+		}
+		warn(err)
+	end
+	
+	local audiolist = {}
+	for i, v in audios do
+		table.insert(audiolist, i)
+	end
+	local newAudio
 	MusicPlayer = sections.utility.left:Toggle({
 		Name = "MusicPlayer",
 		Default = false,
 		Callback = function(callback)
 			if callback then
-				newAudio = Instance.new("Sound", workspace)
-				newAudio.SoundId = audios[SongOption.Option]
-				newAudio:Play()
-				newAudio.Looped = true
+				newAudio = Instance.new("Sound", workspace);
+				newAudio.SoundId = audios[SongOption.Value] or "";
+				if newAudio.SoundId and newAudio.SoundId ~= "" then
+					newAudio:Play();
+					newAudio.Looped = true;
+				else
+					warn("executor issue LOL (p.s your exec is buns)");
+				end;
 			else
-				newAudio:Stop()
-				newAudio = nil
-			end
+				newAudio:Stop();
+				newAudio = nil;
+			end;
 		end,
 	}, "MusicPlayer")
-	SongOption = sections.combat.left:Dropdown({
+	SongOption = sections.utility.left:Dropdown({
 		Name = "Dropdown",
 		Multi = false,
 		Required = true,
 		Options = audiolist,
 		Default = 1,
 		Callback = function(value)
+			if newAudio then
+				newAudio:Stop();
+				newAudio.SoundId = audios[value] or "";
+				if newAudio.SoundId and newAudio.SoundId ~= "" then
+					newAudio:Play();
+				end;
+			end;
 			if value then
-				value = SongOption.Option;
+				SongOption.Value = value;
 			end;
 		end,
 	}, "SongOption")
