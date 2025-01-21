@@ -71,6 +71,13 @@ local globalSettings = {
 				Lifetime = 5
 			})
 		end,
+	}),
+    FPSCap = Window:GlobalSetting({
+		Name = "Unlock FPS",
+		Default = false,
+		Callback = function(bool)
+            setfpscap(bool and 9e9 or 60);
+		end,
 	})
 };
 
