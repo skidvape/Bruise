@@ -224,10 +224,88 @@ run(function()
 	}, "SongOption")
 end)
 
+run(function()
+    local HumanoidPartService = {};
+    local oldsize = {};
+    local SilentAim = {};
+    local TorsoSize = {};
+    local getplrname = function()
+        for i,v in pairs(game:GetChildren()) do
+            if v.ClassName == "Players" then
+                return v.Name;
+            end;
+        end
+    end
+    local plr = game[getplrname()];
+    local SilentRepeat
+    SilentAim = sections.combat.left:Toggle({
+        Name = "SilentAim",
+        Default = false,
+        Callback = function(value)
+            if value then
+                task.spawn(function()
+                    SilentRepeat = RunService.Heartbeat:Connect(function()
+                        for i,v in pairs(playersService:GetPlayers()) do
+                            if v.Name ~= plr.LocalPlayer.Name and v.Character then
+                                task.wait()
+                                HumanoidPartService = {
+                                    RightLeg = v.Character.RightUpperLeg,
+                                    LeftLeg = v.Character.LeftUpperLeg,
+                                    Head = v.Character.Head,
+                                    HumanoidRootPart = v.Character.HumanoidRootPart
+                                }
+                                oldsize = {
+                                    RightLeg = HumanoidPartService.RightLeg.Size,
+                                    LeftLeg = HumanoidPartService.LeftLeg.Size,
+                                    Head = HumanoidPartService.Head.Size,
+                                    HumanoidRootPart = HumanoidPartService.Head.Size
+                                }
+                                for i,v in pairs(HumanoidPartService) do
+                                    v.CanCollide = false;
+                                    v.Transparency = 10;
+                                    v.Size = Vector3.new(TorsoSize.Value, TorsoSize.Value, TorsoSize.Value);
+                                end
+                            end
+                        end
+                    end)
+                end)
+            else
+                SilentRepeat:Disconnect()
+                for i,v in pairs(playersService:GetPlayers()) do
+                    if v.Name ~= lplr.Name and v.Character then
+                        for i,v in pairs(HumanoidPartService) do
+                            v.CanCollide = true;
+                            v.Transparency = 0;
+                            v.Size = oldsize[i];
+                        end
+                        HumanoidPartService = nil;
+                        oldsize = nil;
+                    end
+                end
+            end
+        end
+    })
+    TorsoSize = sections.combat.left:Slider({
+        Name = "Torso Size",
+        Default = 15,
+        Minimum = 10,
+        Maximum = 25,
+        DisplayMethod = "Value",
+        Callback = function(value)
+            TorsoSize.Value = value
+            for i,v in pairs(playersService:GetPlayers()) do
+                if v.Name ~= lplr.Name and v.Character then
+                    for i,v in pairs(HumanoidPartService) do
+                        v.Size = Vector3.new(value, value, value);
+                    end
+                end
+            end
+        end,
+    })
+end)
+
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select(); end;
 uilib:LoadAutoLoadConfig();
-
-return lplr:Kick('bruise not supported yet!!');
