@@ -231,6 +231,46 @@ run(function()
 	}, "SongOption")
 end)
 
+run(function()
+	local AutoCast = {};
+	local SupportedRods = {
+		"Carbon Rod",
+		"Fast Rod",
+		"Long Rod",
+		"Plastic Rod",
+		"Training Rod",
+		"Steady Rod",
+		"Lucky Rod",
+		"Flimsy Rod",
+		"Arctic Rod",
+		"Magnet Rod",
+		"Rapid Rod",
+		"Sunken Rod",
+		"Mythical Rod",
+		"Trident Rod",
+		"Kings Rod",
+		"No-Life Rod",
+		"Rod of the Depths",
+		"Heaven's Rod",
+		"Rod of The Eternal King"
+	};
+	local rod = lplr.Character:FindFirstChildOfClass("Tool")
+	AutoCast = sections.utility.right:Toggle({
+		Name = "AutoCast",
+		Default = false,
+		Callback = function(callback)
+			if callback then
+				repeat task.wait()
+					lplr.Character:FindFirstChild(SupportedRods[rod.Name]).events.cast:FireServer({
+						[1] = 100,
+						[2] = 1
+					})					
+				until not callback
+			end;
+		end,
+	}, "AutoCast")
+end)
+
 uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
