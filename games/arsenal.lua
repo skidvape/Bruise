@@ -71,6 +71,13 @@ local globalSettings = {
 				Lifetime = 5
 			})
 		end,
+	}),
+    FPSCap = Window:GlobalSetting({
+		Name = "Unlock FPS",
+		Default = false,
+		Callback = function(bool)
+            setfpscap(bool and 9e9 or 60);
+		end,
 	})
 };
 
@@ -289,7 +296,7 @@ run(function()
         Name = "Torso Size",
         Default = 15,
         Minimum = 10,
-        Maximum = 25,
+        Maximum = 50,
         DisplayMethod = "Value",
         Callback = function(value)
             TorsoSize.Value = value
