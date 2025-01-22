@@ -27,7 +27,7 @@ end;
 local Window = uilib:Window({
 	Title = "Bruise",
 	Subtitle = "A free, fully open-source solara supported script for Fisch.",
-	Size = UDim2.fromOffset(868, 650),
+	Size = UDim2.fromOffset(624, 315),
 	DragStyle = 1,
 	DisabledWindowControls = {},
 	ShowUserInfo = true,

@@ -27,7 +27,7 @@ end;
 local Window = uilib:Window({
 	Title = "Bruise",
 	Subtitle = "A free, fully open-source solara supported script for Roblox.",
-	Size = UDim2.fromOffset(868, 650),
+	Size = UDim2.fromOffset(960, 426),
 	DragStyle = 1,
 	DisabledWindowControls = {},
 	ShowUserInfo = true,
@@ -236,6 +236,11 @@ uilib:SetFolder("bruise/core/configs");
 uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select(); end;
+
+Window.onUnloaded(function()
+	if newAudio then newAudio:Stop(); newAudio = nil; end
+end)
+
 uilib:LoadAutoLoadConfig();
 
 warn('Bruise IS STILL in development, and thus is NOT finished yet!');

@@ -819,7 +819,7 @@ function MacLib:Window(Settings)
 	if not Settings.DragStyle or Settings.DragStyle == 1 then
 		interact.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				task.spawn(onDragStart(input))
+				onDragStart(task.spawn(input))
 			end
 		end)
 
@@ -827,7 +827,7 @@ function MacLib:Window(Settings)
 
 		UserInputService.InputChanged:Connect(function(input)
 			if input == dragInput and dragging_ then
-				task.spawn(update(input))
+				update(task.spawn(input))
 			end
 		end)
 
@@ -839,7 +839,7 @@ function MacLib:Window(Settings)
 	elseif Settings.DragStyle == 2 then
 		base.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				task.spawn(onDragStart(input))
+				onDragStart(task.spawn(input))
 			end
 		end)
 
@@ -847,7 +847,7 @@ function MacLib:Window(Settings)
 
 		UserInputService.InputChanged:Connect(function(input)
 			if input == dragInput and dragging_ then
-				task.spawn(update(input))
+				update(task.spawn(input))
 			end
 		end)
 
