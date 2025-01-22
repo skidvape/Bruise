@@ -237,10 +237,6 @@ uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select(); end;
 
-Window.onUnloaded(function()
-	if newAudio then newAudio:Stop(); newAudio = nil; end
-end)
-
 uilib:LoadAutoLoadConfig();
 
 warn('Bruise IS STILL in development, and thus is NOT finished yet!');
