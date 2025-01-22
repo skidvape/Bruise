@@ -1,5 +1,5 @@
 --// init
-local uilib = loadstring(game:HttpGet("https://github.com/biggaboy212/Maclib/releases/latest/download/maclib.txt"))()
+local uilib = loadstring(game:HttpGet("https://github.com/skidvape/Bruise/raw/main/core/ui/interface.lua"))()
 
 --// services
 local cloneref = cloneref or function(v) return v; end;
