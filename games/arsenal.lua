@@ -161,7 +161,8 @@ run(function()
 	if err then
 		audios = {
 			numb = getcustomasset("bruise/songs/numb.mp3"),
-			w4ytoof4r = getcustomasset("bruise/songs/w4ytoof4r.mp3")
+			w4ytoof4r = getcustomasset("bruise/songs/w4ytoof4r.mp3"),
+			drift = getcustomasset("bruise/songs/drift.mp3")
 		}
 		warn(err)
 	end
