@@ -261,7 +261,7 @@ run(function()
 		Callback = function(callback)
 			if callback then
 				repeat task.wait()
-					lplr.Character:FindFirstChild(SupportedRods[rod.Name]).events.cast:FireServer({
+					rod.Name.events.cast:FireServer({
 						[1] = 100,
 						[2] = 1
 					})					

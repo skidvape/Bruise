@@ -244,16 +244,15 @@ run(function()
         end
     end
     local plr = game[getplrname()];
-    local SilentRepeat
     SilentAim = sections.combat.left:Toggle({
         Name = "SilentAim",
         Default = false,
         Callback = function(value)
             if value then
                 task.spawn(function()
-                    SilentRepeat = RunService.Heartbeat:Connect(function()
+                    repeat task.wait()
                         for i,v in pairs(playersService:GetPlayers()) do
-                            if v.Name ~= plr.LocalPlayer.Name and v.Character then
+                            if v.Name ~= lplr.Name and v.Character then
                                 task.wait()
                                 HumanoidPartService = {
                                     RightLeg = v.Character.RightUpperLeg,
@@ -274,10 +273,9 @@ run(function()
                                 end
                             end
                         end
-                    end)
+                    until not value
                 end)
             else
-                SilentRepeat:Disconnect()
                 for i,v in pairs(playersService:GetPlayers()) do
                     if v.Name ~= lplr.Name and v.Character then
                         for i,v in pairs(HumanoidPartService) do
