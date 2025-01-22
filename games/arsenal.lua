@@ -1,5 +1,5 @@
 --// init
-local uilib = loadstring(game:HttpGet("https://github.com/skidvape/Bruise/raw/main/core/ui/interface.lua"))()
+local uilib = loadfile('bruise/core/ui/interface.lua')();
 
 --// services
 local cloneref = cloneref or function(v) return v; end;
