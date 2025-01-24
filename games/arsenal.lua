@@ -254,21 +254,21 @@ run(function()
                 task.spawn(function()
                     repeat task.wait()
                         for i,v in pairs(playersService:GetPlayers()) do
-                            if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
-                                task.wait()
-                                HumanoidPartService = {
-                                    RightLeg = v.Character.RightUpperLeg,
-                                    LeftLeg = v.Character.LeftUpperLeg,
-                                    Head = v.Character.Head,
-                                    HumanoidRootPart = v.Character.HumanoidRootPart
-                                }
-                                oldsize = {
-                                    RightLeg = HumanoidPartService.RightLeg.Size,
-                                    LeftLeg = HumanoidPartService.LeftLeg.Size,
-                                    Head = HumanoidPartService.Head.Size,
-                                    HumanoidRootPart = HumanoidPartService.Head.Size
-                                }
-                                for i,v in pairs(HumanoidPartService) do
+                            task.wait()
+                            HumanoidPartService = {
+                                RightLeg = v.Character.RightUpperLeg,
+                                LeftLeg = v.Character.LeftUpperLeg,
+                                Head = v.Character.Head,
+                                HumanoidRootPart = v.Character.HumanoidRootPart
+                            }
+                            oldsize = {
+                                RightLeg = HumanoidPartService.RightLeg.Size,
+                                LeftLeg = HumanoidPartService.LeftLeg.Size,
+                                Head = HumanoidPartService.Head.Size,
+                                HumanoidRootPart = HumanoidPartService.Head.Size
+                            }
+                            for i,v in pairs(HumanoidPartService) do
+								if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
                                     v.CanCollide = false;
                                     v.Transparency = 10;
                                     v.Size = Vector3.new(TorsoSize.Value, TorsoSize.Value, TorsoSize.Value);
@@ -279,8 +279,8 @@ run(function()
                 end)
             else
                 for i,v in pairs(playersService:GetPlayers()) do
-                    if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
-                        for i,v in pairs(HumanoidPartService) do
+                    for i,v in pairs(HumanoidPartService) do
+						if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
                             v.CanCollide = true;
                             v.Transparency = 0;
                             v.Size = oldsize[i];
