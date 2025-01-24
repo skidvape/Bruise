@@ -238,14 +238,14 @@ run(function()
     local oldsize = {};
     local SilentAim = {};
     local TorsoSize = {};
-    local getplrname = function()
+    --[[local getplrname = function()
         for i,v in pairs(game:GetChildren()) do
             if v.ClassName == "Players" then
                 return v.Name;
             end;
         end
     end
-    local plr = game[getplrname()];
+    local plr = game[getplrname()];]]
     SilentAim = sections.combat.left:Toggle({
         Name = "SilentAim",
         Default = false,
