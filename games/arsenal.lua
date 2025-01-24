@@ -238,14 +238,14 @@ run(function()
     local oldsize = {};
     local SilentAim = {};
     local TorsoSize = {};
-    local getplrname = function()
+    --[[local getplrname = function()
         for i,v in pairs(game:GetChildren()) do
             if v.ClassName == "Players" then
                 return v.Name;
             end;
         end
     end
-    local plr = game[getplrname()];
+    local plr = game[getplrname()];]]
     SilentAim = sections.combat.left:Toggle({
         Name = "SilentAim",
         Default = false,
@@ -267,7 +267,7 @@ run(function()
                                 Head = HumanoidPartService.Head.Size,
                                 HumanoidRootPart = HumanoidPartService.Head.Size
                             }
-							if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
+							if v.Character and v.Team ~= lplr.Team and lplr.Name ~= v.Name then
 								for i,v in pairs(HumanoidPartService) do
 									v.CanCollide = false;
 									v.Transparency = 10;
