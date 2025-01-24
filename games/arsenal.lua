@@ -238,14 +238,14 @@ run(function()
     local oldsize = {};
     local SilentAim = {};
     local TorsoSize = {};
-    --[[local getplrname = function()
+    local getplrname = function()
         for i,v in pairs(game:GetChildren()) do
             if v.ClassName == "Players" then
                 return v.Name;
             end;
         end
     end
-    local plr = game[getplrname()];]]
+    local plr = game[getplrname()];
     SilentAim = sections.combat.left:Toggle({
         Name = "SilentAim",
         Default = false,
@@ -267,27 +267,27 @@ run(function()
                                 Head = HumanoidPartService.Head.Size,
                                 HumanoidRootPart = HumanoidPartService.Head.Size
                             }
-                            for i,v in pairs(HumanoidPartService) do
-								if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
-                                    v.CanCollide = false;
-                                    v.Transparency = 10;
-                                    v.Size = Vector3.new(TorsoSize.Value, TorsoSize.Value, TorsoSize.Value);
-                                end
-                            end
+							if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
+								for i,v in pairs(HumanoidPartService) do
+									v.CanCollide = false;
+									v.Transparency = 10;
+									v.Size = Vector3.new(TorsoSize.Value, TorsoSize.Value, TorsoSize.Value);
+								end
+							end
                         end
                     until not value
                 end)
             else
                 for i,v in pairs(playersService:GetPlayers()) do
-                    for i,v in pairs(HumanoidPartService) do
-						if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
-                            v.CanCollide = true;
-                            v.Transparency = 0;
-                            v.Size = oldsize[i];
-                        end
-                        HumanoidPartService = nil;
-                        oldsize = nil;
-                    end
+					if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
+						for i,v in pairs(HumanoidPartService) do
+							v.CanCollide = true;
+							v.Transparency = 0;
+							v.Size = oldsize[i];
+							HumanoidPartService = nil;
+							oldsize = nil;
+						end
+					end
                 end
             end
         end
