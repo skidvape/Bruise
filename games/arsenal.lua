@@ -254,7 +254,7 @@ run(function()
                 task.spawn(function()
                     repeat task.wait()
                         for i,v in pairs(playersService:GetPlayers()) do
-                            if v.Name ~= lplr.Name and v.Character then
+                            if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
                                 task.wait()
                                 HumanoidPartService = {
                                     RightLeg = v.Character.RightUpperLeg,
@@ -279,7 +279,7 @@ run(function()
                 end)
             else
                 for i,v in pairs(playersService:GetPlayers()) do
-                    if v.Name ~= lplr.Name and v.Character then
+                    if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
                         for i,v in pairs(HumanoidPartService) do
                             v.CanCollide = true;
                             v.Transparency = 0;
@@ -301,7 +301,7 @@ run(function()
         Callback = function(value)
             TorsoSize.Value = value
             for i,v in pairs(playersService:GetPlayers()) do
-                if v.Name ~= lplr.Name and v.Character then
+                if v.Team ~= lplr.Team and v.Name ~= lplr.Name and v.Character then
                     for i,v in pairs(HumanoidPartService) do
                         v.Size = Vector3.new(value, value, value);
                     end
