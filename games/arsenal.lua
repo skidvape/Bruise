@@ -13,6 +13,7 @@ local UserInputService = cloneref(game:GetService('UserInputService'));
 local ReplicatedStorage = cloneref(game:GetService('ReplicatedStorage'));
 local CollectionService = cloneref(game:GetService('CollectionService'));
 local VirtualUser = cloneref(game:GetService('VirtualUser'));
+local workspace = cloneref(game:GetService('Workspace'));
 local lplr = playersService.LocalPlayer;
 run = function(v)
     local suc, res = pcall(function()
