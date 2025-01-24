@@ -792,11 +792,14 @@ function MacLib:Window(Settings)
 	local startPos
 
 	local function update(input)
-		local delta = input.Position - dragStart
-		base.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		task.spawn(function()
+			local delta = input.Position - dragStart
+			base.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		end)
 	end
 
 	local function onDragStart(input)
+		task.spawn(function()
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 			dragging_ = true
 			dragStart = input.Position
@@ -808,18 +811,21 @@ function MacLib:Window(Settings)
 				end
 			end)
 		end
+	end)
 	end
 
 	local function onDragUpdate(input)
-		if dragging_ and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-			dragInput = input
-		end
+		task.spawn(function()
+			if dragging_ and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+				dragInput = input
+			end
+		end)
 	end
 
 	if not Settings.DragStyle or Settings.DragStyle == 1 then
 		interact.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				onDragStart(task.spawn(input))
+				onDragStart(input)
 			end
 		end)
 
@@ -827,7 +833,7 @@ function MacLib:Window(Settings)
 
 		UserInputService.InputChanged:Connect(function(input)
 			if input == dragInput and dragging_ then
-				update(task.spawn(input))
+				update(input)
 			end
 		end)
 
@@ -839,7 +845,7 @@ function MacLib:Window(Settings)
 	elseif Settings.DragStyle == 2 then
 		base.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				onDragStart(task.spawn(input))
+				onDragStart(input)
 			end
 		end)
 
@@ -847,7 +853,7 @@ function MacLib:Window(Settings)
 
 		UserInputService.InputChanged:Connect(function(input)
 			if input == dragInput and dragging_ then
-				update(task.spawn(input))
+				update(input)
 			end
 		end)
 
