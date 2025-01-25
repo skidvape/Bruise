@@ -15,12 +15,22 @@ local CollectionService = cloneref(game:GetService('CollectionService'));
 local VirtualUser = cloneref(game:GetService('VirtualUser'));
 local workspace = cloneref(game:GetService('Workspace'));
 local lplr = playersService.LocalPlayer;
+
 run = function(v)
     local suc, res = pcall(function()
         v();
     end);
     
-    if res then writefile('errorlog.lua', tostring(res)); end;
+    if res then
+		if not isfile('bruise/errors/errorlog.lua') then
+			warn(tostring(res));
+			writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)));
+		else
+            delfile('bruise/errors/errorlog.lua');
+			warn(tostring(res));
+			writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)));
+		end;
+	end;
 end;
 
 --// ui definition
