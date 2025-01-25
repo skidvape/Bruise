@@ -25,10 +25,9 @@ run = function(v)
 		if not isfile('bruise/errors/errorlog.lua') then
 			warn(tostring(res));
 			writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)));
-		else
-            delfile('bruise/errors/errorlog.lua');
+		elseif isfile('bruise/errors/errorlog.lua') then
 			warn(tostring(res));
-			writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)));
+			appendfile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)).."\n");
 		end;
 	end;
 end;
