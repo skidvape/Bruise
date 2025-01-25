@@ -43,7 +43,7 @@ local Window = uilib:Window({
 	ShowUserInfo = true,
 	Keybind = Enum.KeyCode.RightShift,
 	AcrylicBlur = true,
-})
+});
 
 local globalSettings = {
 	UIBlurToggle = Window:GlobalSetting({
