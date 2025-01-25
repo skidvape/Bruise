@@ -163,10 +163,10 @@ run(function()
 	local path = 'bruise/songs'
 	local suc, err = pcall(function()
 		for i, v in pairs(listfiles(path)) do
-			local name = v:match("^.+/(.+)%.mp3$")
-			audios[name] = getcustomasset(v)
-		end
-	end)
+			local name = v:match("^.+/(.+)%.mp3$");
+			audios[name] = getcustomasset(v);
+		end;
+	end);
 	
 	if err then
 		audios = {
