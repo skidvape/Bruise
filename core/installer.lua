@@ -17,7 +17,7 @@ if err then
     if not isfile('bruise/errors/errorlog.lua') then
         warn(tostring(err));
         writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(err)));
-    else
+    elseif isfile('bruise/errors/errorlog.lua') then
         delfile('bruise/errors/errorlog.lua');
         warn(tostring(err));
         writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(err)));
