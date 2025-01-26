@@ -21,11 +21,10 @@ run = function(v)
     end);
     
     if res then
+    	warn(tostring(res));
 		if not isfile('bruise/errors/errorlog.lua') then
-			warn(tostring(res));
 			writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)));
 		elseif isfile('bruise/errors/errorlog.lua') then
-			warn(tostring(res));
 			appendfile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)).."\n");
 		end;
 	end;
