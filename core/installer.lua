@@ -29,5 +29,10 @@ if suc then
         return loadfile('bruise/games/universal.lua')()
     end
 elseif res then
-    warn(res)
+    if isfile('bruise/errors/errorlog.lua') then
+        delfile('bruise/errors/errorlog.lua')
+        writefile('bruise/errors/errorlog.lua', res)
+    else
+        writefile('bruise/errors/errorlog.lua', res)
+    end
 end
