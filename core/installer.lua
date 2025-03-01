@@ -1,4 +1,4 @@
-local folders = {'bruise', 'bruise/core', 'bruise/core/ui', 'bruise/songs', 'bruise/core/configs', 'bruise/games'}
+local folders = {'bruise', 'bruise/core', 'bruise/core/ui', 'bruise/songs', 'bruise/core/configs', 'bruise/games', 'bruise/errors'}
 local HttpService = game:GetService('HttpService')
 
 local suc, res = pcall(function()
