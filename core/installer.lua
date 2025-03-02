@@ -1,20 +1,24 @@
+local api = loadstring(game:HttpGet('https://raw.githubusercontent.com/skidvape/bruise/refs/heads/main/core/api.lua'))()
+local scripts = api.load()
 local folders = {'bruise', 'bruise/core', 'bruise/core/ui', 'bruise/songs', 'bruise/core/configs', 'bruise/games', 'bruise/errors'}
 local HttpService = game:GetService('HttpService')
 
 local suc, res = pcall(function()
-    for _, v in pairs(folders) do
+    for _, v in ipairs(folders) do
         local url = game:HttpGet('https://api.github.com/repos/skidvape/bruise/contents/'..v)
         local jsonurl = HttpService:JSONDecode(url)
-        for _, v in jsonurl do
-            if v.type == 'file' then
-                if not isfile(v.name) then
-                    writefile(v.name, game:HttpGet(v.download_url))
-                elseif isfile(v.name) then
-                    delfile(v.name)
-                    writefile(v.name, game:HttpGet(v.download_url))
+        for _, file in pairs(jsonurl) do
+            if file.type == 'file' then
+                for _,v in pairs(scripts) do
+                    if not isfile(v.name) then
+                        writefile(v.name, game:HttpGet(v.url))
+                    else
+                        delfile(v.name)
+                        writefile(v.name, game:HttpGet(v.url))
+                    end
                 end
-            elseif v.type == 'dir' then
-                if not isfolder(v.name) then makefolder(v.name) elseif isfolder(v.name) then delfolder(v.name) makefolder(v.name) end
+            elseif file.type == 'dir' then
+                if not isfolder(file.name) then makefolder(file.name) elseif isfolder(file.name) then delfolder(file.name) makefolder(file.name) end
             end
         end
     end
