@@ -9,7 +9,7 @@ api.load = function()
     local scripts = {}
     for _, v in ipairs(folders) do
         local suc, res = pcall(function()
-            return game:HttpGet('https://api.github.com/repos/skidvape/bruise/contents/'..folder)
+            return game:HttpGet('https://api.github.com/repos/skidvape/bruise/contents/'..v)
         end)
         if suc then
             local json = HttpService:JSONDecode(res)
