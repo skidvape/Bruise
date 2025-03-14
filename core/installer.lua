@@ -29,15 +29,13 @@ if res then
     elseif isfile('bruise/errors/errorlog.lua') then
         delfile('bruise/errors/errorlog.lua')
         writefile('bruise/errors/errorlog.lua', debug.traceback(tostring(res)))
-    end;
-end;
-
-if res then
+    end
+elseif suc then
     if game.PlaceId == 286090429 then
         return loadfile('bruise/games/arsenal.lua')()
     elseif game.PlaceId == 16732694052 then
         return loadfile('bruise/games/fisch.lua')()
     else
         return loadfile('bruise/games/universal.lua')()
-    end;
-end;
+    end
+end
