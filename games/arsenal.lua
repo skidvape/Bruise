@@ -318,7 +318,7 @@ run(function()
     })
 end)
 
-uilib:SetFolder("bruise/core/configs");
+uilib:SetFolder("bruise");
 uitabs.settings:InsertConfigSection("Left");
 
 for i,v in ipairs(uitabs) do v:Select(); end;

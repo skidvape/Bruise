@@ -4751,7 +4751,7 @@ function MacLib:Window(Settings)
 					Name = "Set as autoload",
 					Callback = function()
 						local name = configSelection.Value
-						writefile(MacLib.Folder .. "/settings/autoload.txt", name)
+						writefile(MacLib.Folder .. "/core/configs/autoload.txt", name)
 						autoloadLabel:UpdateName("Autoload config: " .. name)
 						WindowFunctions:Notify({
 							Title = "Interface",
@@ -4762,8 +4762,8 @@ function MacLib:Window(Settings)
 
 				autoloadLabel = configSection:Label({Text = "Autoload config: None"})
 
-				if isfile(MacLib.Folder .. "/settings/autoload.txt") then
-					local name = readfile(MacLib.Folder .. "/settings/autoload.txt")
+				if isfile(MacLib.Folder .. "/core/configs/autoload.txt") then
+					local name = readfile(MacLib.Folder .. "/core/configs/autoload.txt")
 					autoloadLabel:UpdateName("Autoload config: " .. name)
 				end
 			end
@@ -5484,7 +5484,7 @@ function MacLib:Window(Settings)
 
 		local paths = {
 			MacLib.Folder,
-			MacLib.Folder .. "/settings"
+			MacLib.Folder .. "/core/configs"
 		}
 
 		for i = 1, #paths do
@@ -5498,8 +5498,8 @@ function MacLib:Window(Settings)
 	function MacLib:LoadAutoLoadConfig()
 		if isStudio or not (isfile and readfile) then return "Config system unavailable." end
 
-		if isfile(MacLib.Folder .. "/settings/autoload.txt") then
-			local name = readfile(MacLib.Folder .. "/settings/autoload.txt")
+		if isfile(MacLib.Folder .. "/core/configs/autoload.txt") then
+			local name = readfile(MacLib.Folder .. "/core/configs/autoload.txt")
 
 			local suc, err = MacLib:LoadConfig(name)
 			if not suc then
@@ -5530,7 +5530,7 @@ function MacLib:Window(Settings)
 			return false, "Please select a config file."
 		end
 
-		local fullPath = MacLib.Folder .. "/settings/" .. Path .. ".json"
+		local fullPath = MacLib.Folder .. "/core/configs/" .. Path .. ".json"
 
 		local data = {
 			objects = {}
@@ -5559,7 +5559,7 @@ function MacLib:Window(Settings)
 			return false, "Please select a config file."
 		end
 
-		local file = MacLib.Folder .. "/settings/" .. Path .. ".json"
+		local file = MacLib.Folder .. "/core/configs/" .. Path .. ".json"
 		if not isfile(file) then return false, "Invalid file" end
 
 		local success, decoded = pcall(HttpService.JSONDecode, HttpService, readfile(file))
@@ -5579,7 +5579,7 @@ function MacLib:Window(Settings)
 	function MacLib:RefreshConfigList()
 		if isStudio or not (isfolder and listfiles) then return "Config system unavailable." end
 
-		local list = (isfolder(MacLib.Folder) and isfolder(MacLib.Folder .. "/settings")) and listfiles(MacLib.Folder .. "/settings") or {}
+		local list = (isfolder(MacLib.Folder) and isfolder(MacLib.Folder .. "/core/configs")) and listfiles(MacLib.Folder .. "/core/configs") or {}
 
 		local out = {}
 		for i = 1, #list do
